@@ -1,9 +1,9 @@
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:photohub/services/getcurrentuser.dart';
 
 import '../../models/User.dart';
 import '../../services/uploadtoS3.dart';
@@ -27,19 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
   String _removeResult = '';
   List<String> urls = [];
 
-  Future<void> createUser(User user) async {
-    try {
-      final request = ModelMutations.create(user);
-      final response = await Amplify.API.mutate(request: request).response;
-
-      final createdTrip = response.data;
-      if (createdTrip == null) {
-        safePrint('addTrip errors: ${response.errors}');
-        return;
-      }
-    } on Exception catch (error) {
-      safePrint('addTrip failed: $error');
-    }
+  void createUser(User user) async {
+    await AuthServices().createUser(user);
   }
 
   Future<void> getCurrentUser() async {
@@ -59,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         email = userAttributes[2].value.toString();
       });
-      User createuser = User(username: authUser.username, email: email);
-      createUser(createuser);
+      User createduser = User(username: authUser.username, email: email);
+      createUser(createduser);
     } catch (e) {
       print('Error getting current user: $e');
     }

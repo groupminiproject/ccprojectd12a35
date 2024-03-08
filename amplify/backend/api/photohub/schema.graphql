@@ -7,3 +7,11 @@ type User @model {
   username: String!
   email: String!
 }
+
+type Images @model {
+  id: ID!
+  imageUrl: String!
+  imageTitle: String!
+  labels: [String]!
+  userId: String!
+}

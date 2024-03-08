@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:photohub/models/Images.dart';
 
 class AwsServices {
   Future<File> pickImage() async {
@@ -25,6 +27,7 @@ class AwsServices {
       print('In upload');
 
       final key = 'images/$username/$fileName';
+      final AuthUser authUser = await Amplify.Auth.getCurrentUser();
       Map<String, String> metadata = <String, String>{};
       metadata['name'] = fileName;
       metadata['desc'] = 'A test file';
@@ -38,6 +41,19 @@ class AwsServices {
           .result;
 
       _uploadFileResult = result.uploadedItem.key;
+      print('key :' + _uploadFileResult);
+      List<String> parts = _uploadFileResult.split('/');
+
+      // Access the last part
+      String lastPart = parts.last;
+
+      print(lastPart);
+      Images image = Images(
+          imageUrl: await getUrl(key: _uploadFileResult.toString()),
+          imageTitle: lastPart,
+          labels: [],
+          userId: authUser.username);
+      uploadImagetoDb(image: image);
     } catch (e) {
       print('UploadFile Err: ' + e.toString());
     }
@@ -59,6 +75,21 @@ class AwsServices {
       print('GetUrl Err: ' + e.toString());
     }
     return _getUrlResult;
+  }
+
+  Future<void> uploadImagetoDb({required Images image}) async {
+    try {
+      final request = ModelMutations.create(image);
+      final response = await Amplify.API.mutate(request: request).response;
+
+      final createdImage = response.data;
+      if (createdImage == null) {
+        safePrint('addImage errors: ${response.errors}');
+        return;
+      }
+    } on Exception catch (error) {
+      safePrint('addImage failed: $error');
+    }
   }
 
   Future<List<Map<String, dynamic>>> fetchImages() async {
