@@ -6,6 +6,13 @@ export type AmplifyDependentResourcesAttributes = {
       "appName": "string"
     }
   },
+  "api": {
+    "photohub": {
+      "GraphQLAPIEndpointOutput": "string",
+      "GraphQLAPIIdOutput": "string",
+      "GraphQLAPIKeyOutput": "string"
+    }
+  },
   "auth": {
     "photohub1430daaa": {
       "AppClientID": "string",
