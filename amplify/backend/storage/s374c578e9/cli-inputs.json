@@ -1,0 +1,18 @@
+{
+  "resourceName": "s374c578e9",
+  "policyUUID": "74c578e9",
+  "bucketName": "photohubdfd91299b09c47559545a186fa32a341",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Trigger03c4196c",
+  "groupAccess": {}
+}

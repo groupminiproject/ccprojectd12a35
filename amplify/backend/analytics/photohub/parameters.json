@@ -1,0 +1,21 @@
+{
+    "appName": "photohub",
+    "roleName": "pinpointLambdaRolea95d8599",
+    "cloudformationPolicyName": "cloudformationPolicya95d8599",
+    "cloudWatchPolicyName": "cloudWatchPolicya95d8599",
+    "pinpointPolicyName": "pinpointPolicya95d8599",
+    "authPolicyName": "pinpoint_amplify_a95d8599",
+    "unauthPolicyName": "pinpoint_amplify_a95d8599",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}
