@@ -47,8 +47,9 @@ dependencies:
   google_fonts: 6.0.0
   dotted_border: ^2.1.0
   amplify_api: ^1.7.0
-  uuid: ^4.3.3
+
   amplify_datastore: ^1.7.0
+  http: ^1.2.0
 
 dev_dependencies:
   flutter_test:

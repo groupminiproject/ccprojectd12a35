@@ -29,6 +29,9 @@
       },
       "api": {
         "photohub": {}
+      },
+      "predictions": {
+        "identifyEntitiesd1f80f36": {}
       }
     }
   }

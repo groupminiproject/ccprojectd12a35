@@ -1,8 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
+import 'package:photohub/errorhandling.dart';
 import 'package:photohub/models/Images.dart';
 
 class AwsServices {
@@ -21,6 +25,7 @@ class AwsServices {
   Future<String> uploadtoS3(
       {required String username,
       required String fileName,
+      required BuildContext context,
       required File local}) async {
     String _uploadFileResult = '';
     try {
@@ -53,6 +58,7 @@ class AwsServices {
           imageTitle: lastPart,
           labels: [],
           userId: authUser.username);
+      getLabels(imageUrl: image.imageUrl, context: context);
       uploadImagetoDb(image: image);
     } catch (e) {
       print('UploadFile Err: ' + e.toString());
@@ -116,5 +122,35 @@ class AwsServices {
       print('Error fetching images: $e');
     }
     return imageDetails;
+  }
+
+  Future<void> getLabels(
+      {required String imageUrl, required BuildContext context}) async {
+    List<String> labels = [];
+    try {
+      String uri =
+          'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBMMKSYQjxUl0je16gedo3kj8Si3VbeEf0';
+      http.Response res = await http.post(Uri.parse(uri),
+          body: jsonEncode({
+            "requests": [
+              {
+                "features": [
+                  {"type": "LABEL_DETECTION"}
+                ],
+                "image": {
+                  "source": {"imageUri": imageUrl}
+                }
+              }
+            ]
+          }));
+      httpErrorHandle(
+          res: res,
+          context: context,
+          onSuccess: () {
+            print(jsonDecode(res.body)['responses']);
+          });
+    } catch (err) {
+      print(err.toString());
+    }
   }
 }

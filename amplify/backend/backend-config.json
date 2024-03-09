@@ -74,6 +74,14 @@
       ]
     }
   },
+  "predictions": {
+    "identifyEntitiesd1f80f36": {
+      "dependsOn": [],
+      "identifyType": "identifyEntities",
+      "providerPlugin": "awscloudformation",
+      "service": "Rekognition"
+    }
+  },
   "storage": {
     "s374c578e9": {
       "dependsOn": [

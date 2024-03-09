@@ -48,7 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         email = userAttributes[2].value.toString();
       });
-      User createduser = User(username: authUser.username, email: email);
+      User createduser =
+          User(id: email, username: authUser.username, email: email);
       createUser(createduser);
     } catch (e) {
       print('Error getting current user: $e');

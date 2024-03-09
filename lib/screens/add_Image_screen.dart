@@ -25,6 +25,7 @@ class _AddImageScreenState extends State<AddImageScreen> {
       _isLoading = true;
     });
     await AwsServices().uploadtoS3(
+        context: context,
         username: widget.user.username,
         fileName: _imageNameController.text.trim(),
         local: file!);

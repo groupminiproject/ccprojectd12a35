@@ -41,7 +41,13 @@ class _MyAppState extends State<MyApp> {
     final dataStorePlugin =
         AmplifyDataStore(modelProvider: ModelProvider.instance);
     try {
-      await amplify.addPlugins([auth, analytics, s3, api, dataStorePlugin]);
+      await amplify.addPlugins([
+        auth,
+        analytics,
+        s3,
+        api,
+        dataStorePlugin,
+      ]);
       await amplify.configure(amplifyconfig);
       setState(() {
         _amplifyConfigured = true;
