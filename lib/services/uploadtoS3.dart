@@ -128,8 +128,7 @@ class AwsServices {
       {required String imageUrl, required BuildContext context}) async {
     List<String> labels = [];
     try {
-      String uri =
-          'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBMMKSYQjxUl0je16gedo3kj8Si3VbeEf0';
+      String uri='https://vision.googleapis.com/v1/images:annotate?key=key';
       http.Response res = await http.post(Uri.parse(uri),
           body: jsonEncode({
             "requests": [
