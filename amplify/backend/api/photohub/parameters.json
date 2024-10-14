@@ -1,7 +1,0 @@
-{
-  "AppSyncApiName": "photohub",
-  "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false,
-  "access": "auth",
-  "type": "ALL"
-}
